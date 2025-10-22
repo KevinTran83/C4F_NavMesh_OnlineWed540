@@ -14,7 +14,7 @@ public class CPUController : MonoBehaviour
 
     private void Update()
     {
-        
+        if (_agent.remainingDistance < 1) PickNewDestination();
     }
 
     private void PickNewDestination()
@@ -22,6 +22,11 @@ public class CPUController : MonoBehaviour
         Vector3 newDest = Random.insideUnitSphere * _moveRange
                         + transform.position;
 
-        
+        if (NavMesh.SamplePosition ( newDest,
+                                     out NavMeshHit hit,
+                                     1,
+                                     NavMesh.AllAreas
+                                   )) _agent.SetDestination(hit.position);
+        else PickNewDestination();
     }
 }
