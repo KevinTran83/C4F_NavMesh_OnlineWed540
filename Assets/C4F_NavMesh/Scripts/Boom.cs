@@ -8,7 +8,7 @@ public class Boom : MonoBehaviour
 
     private void Start()
     {
-        _offset = _target.position - transform.position;
+        _offset = transform.position - _target.position;
     }
 
     private void Update()
