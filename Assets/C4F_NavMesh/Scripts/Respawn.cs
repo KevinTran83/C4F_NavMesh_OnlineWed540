@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class Respawn : MonoBehaviour
 {
     [SerializeField] private LayerMask _enemyLayer;
     private Vector3      _spawnPos;
     private NavMeshAgent _agent;
+    [SerializeField] private UnityEvent _onRespawn;
 
     private void Start()
     {
@@ -19,6 +21,11 @@ public class Respawn : MonoBehaviour
         {
             // Respawn
             DoRespawn();
+
+            _onRespawn?.Invoke();
+
+            // Reset score
+            ScoreCounter.instance.ResetScore();
         }
     }
 
